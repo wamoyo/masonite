@@ -1,0 +1,14 @@
+{
+  "name": "Heartsbound",
+  "version": "0.0.1",
+  "description": "Because life is too dam short, the adventure is just too beautiful, our warriors are mighty, and the possibilities are endless.",
+  "license": "See license in LICENSE.md",
+  "scripts": {
+    "start": "npm build && http-server _site",
+    "build-css": "stylus > stylus/ > _site/stylesheets/style.css -c",
+    "build-pages": "",
+    "build-blog": "",
+    "build-events": "",
+    "build": "build-css && build-pages"
+  }
+}
