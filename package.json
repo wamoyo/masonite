@@ -3,12 +3,18 @@
   "version": "0.0.1",
   "description": "Because life is too dam short, the adventure is just too beautiful, our warriors are mighty, and the possibilities are endless.",
   "license": "See license in LICENSE.md",
+  "private": true,
   "scripts": {
-    "start": "npm build && http-server _site",
-    "build-css": "stylus > stylus/ > _site/stylesheets/style.css -c",
-    "build-pages": "",
+    "start": "npm run build-site && http-server _site",
+    "build-public": "cp -R public/. _site/",
+    "build-pages": "node bin/build-pages.js",
+    "build-css": "node bin/build-css.js",
     "build-blog": "",
     "build-events": "",
-    "build": "build-css && build-pages"
-  }
+    "build-site": "npm run build-public && npm run build-pages && npm run build-css"
+  },
+  "domains": [
+    "heartsbound.com",
+    "*.heartsbound.com"
+  ]
 }

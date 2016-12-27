@@ -5,16 +5,16 @@
 
 var fs = require('fs')
 
-fs.readdir('content/pages/', 'utf-8', function (err, files) {
-  if (err) throw Error('trouble reading files')
+fs.readdir('content/pages/', 'utf-8', function (error, files) {
+  if (error) throw Error('Trouble reading files')
   files.forEach(function (file) {
     return compilePage(file.split('.')[0])
   })
 })
 
 function compilePage (file) {
-  fs.readFile('content/pages/' + file + '.html', 'utf-8', function (err, string) {
-    if (err) throw Error('file read error')
+  fs.readFile('content/pages/' + file + '.html', 'utf-8', function (error, string) {
+    if (error) throw Error('File read error')
     var layout = string.match(/extends ([\w\S]+)/)[1]
     var blocks = string.match(/block (\w+)\n+([\s\S]*?)(?=\s+\nblock|$)/g)
     var frags = {}
@@ -27,8 +27,8 @@ function compilePage (file) {
   })
 
   function getLayout (layout, frags) {
-    fs.readFile('layouts/' + layout + '.html', 'utf-8', function (err, layout) {
-      if (err) throw Error('file read error')
+    fs.readFile('layouts/' + layout + '.html', 'utf-8', function (error, layout) {
+      if (error) throw Error('File read error')
       assemblePage(layout, frags)
     })
   }
@@ -41,8 +41,8 @@ function compilePage (file) {
   }
 
   function writePage (html) {
-    fs.writeFile('_site/' + file + '.html', html, function (err) {
-      if (err) throw Error('trouble writing HTML page')
+    fs.writeFile('_site/' + file + '.html', html, function (error) {
+      if (error) throw Error('Trouble writing HTML page')
       return console.log('Wrote ' + file + ' page')
     })
   }
