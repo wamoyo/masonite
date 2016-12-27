@@ -5,13 +5,17 @@
   "license": "See license in LICENSE.md",
   "private": true,
   "scripts": {
-    "start": "npm run build-site && http-server _site",
-    "build-public": "cp -R public/. _site/",
+    "start": "npm run build-site && http-server site",
+    "watch-public": "node bin/watch-public.js",
+    "watch-pages": "node bin/watch-pages.js",
+    "watch-styles": "node bin/watch-styles.js",
+    "watch-site": "npm run watch-public && npm run watch-pages && npm watch-styles",
+    "build-public": "cp -R public/. site/",
     "build-pages": "node bin/build-pages.js",
-    "build-css": "node bin/build-css.js",
+    "build-styles": "node bin/build-styles.js",
     "build-blog": "",
     "build-events": "",
-    "build-site": "npm run build-public && npm run build-pages && npm run build-css"
+    "build-site": "npm run build-public && npm run build-pages && npm run build-styles"
   },
   "domains": [
     "heartsbound.com",

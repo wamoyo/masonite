@@ -16,17 +16,17 @@ fs.readdir('layout-styles/', 'utf-8', function (error, files) {
 function checkIfFile (file) {
   fs.stat('layout-styles/' + file, function (error, stat) {
     if (error) throw Error('Trouble identifying file')
-    if (stat.isFile()) {
+    if (stat.isFile() && !file.match(/^\./)) {
       compileCss(file)
     }
   })
 }
 
 function compileCss (file) {
-  var command = 'stylus < layout-styles/' + file + ' > _site/stylesheets/' + file.split('.')[0] + '.css -c'
-  exec(command, (error, stdout, stderr) => {
-    if (error) throw Error('Error running stylus command')
-    return console.log(`${stdout}` || `${stderr}`)
+  var command = 'stylus < layout-styles/' + file + ' > site/stylesheets/' + file.split('.')[0] + '.css -c'
+  exec(command, function (error, stdout, stderr) {
+    if (error || stderr) throw Error('Trouble running stylus command')
+    return console.log("Compiled CSS " + file, stdout)
   })
 }
 

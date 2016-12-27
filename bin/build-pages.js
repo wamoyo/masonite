@@ -8,13 +8,13 @@ var fs = require('fs')
 fs.readdir('content/pages/', 'utf-8', function (error, files) {
   if (error) throw Error('Trouble reading files')
   files.forEach(function (file) {
-    return compilePage(file.split('.')[0])
+    return !file.match(/^\./) && compilePage(file.split('.')[0])
   })
 })
 
 function compilePage (file) {
   fs.readFile('content/pages/' + file + '.html', 'utf-8', function (error, string) {
-    if (error) throw Error('File read error')
+    if (error) throw Error('File compile error')
     var layout = string.match(/extends ([\w\S]+)/)[1]
     var blocks = string.match(/block (\w+)\n+([\s\S]*?)(?=\s+\nblock|$)/g)
     var frags = {}
@@ -37,11 +37,11 @@ function compilePage (file) {
     Object.keys(frags).forEach(function (frag) {
       layout = layout.replace(new RegExp('{{' + frag + '}}'), frags[frag] )
     })
-    return writePage(layout)
+    writePage(layout)
   }
 
   function writePage (html) {
-    fs.writeFile('_site/' + file + '.html', html, function (error) {
+    fs.writeFile('site/' + file + '.html', html, function (error) {
       if (error) throw Error('Trouble writing HTML page')
       return console.log('Wrote ' + file + ' page')
     })
