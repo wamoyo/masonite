@@ -3,8 +3,8 @@
  * Compile CSS sheets with Stylus
  */
 
-var fs = require('fs')
-var exec = require('child_process').exec
+const fs = require('fs')
+const exec = require('child_process').exec
 
 fs.readdir('layout-styles/', 'utf-8', function (error, files) {
   if (error) throw error // Trouble reading files
@@ -26,7 +26,7 @@ function compileCss (file) {
   var command = 'stylus < layout-styles/' + file + ' > site/stylesheets/' + file.split('.')[0] + '.css -c'
   exec(command, function (error, stdout, stderr) {
     if (error || stderr) throw error || stderr // Trouble running stylus command
-    return console.log("Compiled CSS " + file, stdout)
+    console.log("Compiled CSS " + file, stdout)
   })
 }
 

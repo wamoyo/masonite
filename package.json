@@ -4,6 +4,9 @@
   "description": "Because life is too dam short, the adventure is just too beautiful, our warriors are mighty, and the possibilities are endless.",
   "license": "See license in LICENSE.md",
   "private": true,
+  "dependencies": {
+    "chokidar": "1.6.x"
+  },
   "scripts": {
     "watch-public": "node bin/watch-public.js",
     "watch-pages": "node bin/watch-pages.js",

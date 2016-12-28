@@ -1,3 +1,3 @@
 
-console.log('Hello JavaSript World!')
+console.log('Hello JavaScript World!')
 

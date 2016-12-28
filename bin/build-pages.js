@@ -3,12 +3,12 @@
  * Compile HTML pages of our site
  */
 
-var fs = require('fs')
+const fs = require('fs')
 
-fs.readdir('content/pges/', 'utf-8', function (error, files) {
+fs.readdir('content/pages/', 'utf-8', function (error, files) {
   if (error) throw error // Trouble reading files
   files.forEach(function (file) {
-    return !file.match(/^\./) && compilePage(file.split('.')[0])
+    !file.match(/^\./) && compilePage(file.split('.')[0])
   })
 })
 
@@ -23,7 +23,7 @@ function compilePage (file) {
       var frag = block.match(/<[\w\W]+>/)[0]
       frags[name] = frag
     })
-    return getLayout(layout, frags)
+    getLayout(layout, frags)
   })
 
   function getLayout (layout, frags) {
@@ -43,7 +43,7 @@ function compilePage (file) {
   function writePage (html) {
     fs.writeFile('site/' + file + '.html', html, function (error) {
       if (error) throw error // Trouble writing HTML page
-      return console.log('Wrote ' + file + ' page')
+      console.log('Wrote ' + file + ' page')
     })
   }
 }

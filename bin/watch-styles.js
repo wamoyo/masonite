@@ -3,7 +3,7 @@
  * Run `stylus --watch` on stylus files.
  */
 
-var spawn = require('child_process').spawn
+const spawn = require('child_process').spawn
 
 var layoutStyles = spawn('stylus', ['-w', 'layout-styles/', '-o', 'site/stylesheets/', '-c'])
 
