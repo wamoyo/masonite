@@ -29,14 +29,24 @@ watch('content/pages/', {ignored: /(^|[\/\\])\../}) // One-liner for current dir
     })
   })
   .on('add', function (path) {
-    var fileName = path.split('/').pop().split('.')[0]
-    //console.log('Added ', fileName)
-    compilePage(fileName)
+    var to = path.match(/pages\/(.*[\\\/])/) ? 'site/' + path.match(/pages\/(.*[\\\/])/)[1] : 'site/'
+    var fileName = path.split('/').pop()
+    console.log('Add ', fileName)
+    exec('cp ' + path + ' ' + to + fileName, function (error, stdout, stderr) {
+      if (error || stderr) throw error || stderr // Trouble copying file
+      console.log('Copied file to: ', to)
+      compilePage(fileName, to)
+    })
   })
   .on('change', function (path) {
-    var fileName = path.split('/').pop().split('.')[0]
-    //console.log('Changed ', fileName)
-    compilePage(fileName)
+    var to = path.match(/pages\/(.*[\\\/])/) ? 'site/' + path.match(/pages\/(.*[\\\/])/)[1] : 'site/'
+    var fileName = path.split('/').pop()
+    console.log('Changed ', fileName)
+    exec('cp ' + path + ' ' + to + fileName, function (error, stdout, stderr) {
+      if (error || stderr) throw error || stderr // Trouble copying file
+      console.log('Copied file to: ', to)
+      compilePage(fileName, to)
+    })
   })
   .on('unlink', function (path) {
     var destination = ' site' + path.match(/pages([\w\W]+)/)[1]
@@ -49,6 +59,4 @@ watch('content/pages/', {ignored: /(^|[\/\\])\../}) // One-liner for current dir
   .on('error', function (error) {
     throw error // Chokidar ( file watcher library ) had trouble
   })
-
-
 

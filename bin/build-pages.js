@@ -33,17 +33,20 @@ function checkFile (name, from) {
 }
 
 function compilePage (file, to) {
+  console.log('Getting ', file, to)
   fs.readFile(to + file, 'utf-8', function (error, string) {
     if (error) throw error // File compile error
-    var layout = string.match(/extends ([\w\S]+)/)[1]
-    var blocks = string.match(/block (\w+)\n+([\s\S]*?)(?=\s+\nblock|$)/g)
-    var frags = {}
-    blocks.forEach(function (block) {
-      var name = block.match(/block ([\w\S]+)/)[1]
-      var frag = block.match(/<[\w\W]+>/)[0]
-      frags[name] = frag
-    })
-    getLayout(layout, frags, to)
+    if (string.match(/extends ([\w\S]+)/)) {
+      var layout = string.match(/extends ([\w\S]+)/)[1]
+      var blocks = string.match(/block (\w+)\n+([\s\S]*?)(?=\s+\nblock|$)/g)
+      var frags = {}
+      blocks.forEach(function (block) {
+        var name = block.match(/block ([\w\S]+)/)[1]
+        var frag = block.match(/<[\w\W]+>/)[0]
+        frags[name] = frag
+      })
+      getLayout(layout, frags, to)
+    }
   })
 
   function getLayout (layout, frags, to) {
@@ -57,6 +60,7 @@ function compilePage (file, to) {
     Object.keys(frags).forEach(function (frag) {
       layout = layout.replace(new RegExp('{{' + frag + '}}'), frags[frag] )
     })
+    console.log(to)
     writePage(layout, to)
   }
 
