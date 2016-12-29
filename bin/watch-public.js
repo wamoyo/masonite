@@ -3,12 +3,10 @@
  * Watch public/ and rebuild it upon file changes.
  */
 
-//const fs = require('fs')
 const watch = require('chokidar').watch
 const exec = require('child_process').exec
 
-// One-liner for current directory, ignores .dotfiles
-watch('public/', {ignored: /^\./})
+watch('public/', {ignored: /(^|[\/\\])\../}) // One-liner for current directory, ignores .dotfiles
   .on('all', function (event, path) {
     console.log(event, path)
   })

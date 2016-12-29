@@ -4,16 +4,36 @@
  */
 
 const fs = require('fs')
+const exec = require('child_process').exec
 
-fs.readdir('content/pages/', 'utf-8', function (error, files) {
-  if (error) throw error // Trouble reading files
-  files.forEach(function (file) {
-    !file.match(/^\./) && compilePage(file.split('.')[0])
-  })
+const site = 'site'
+
+// First Copy everything inside of content/pages/ into site/
+exec('cp -R content/pages/. site/', function (error, stdout, stderr) {
+  if (error || stderr) throw error || stderr // Trouble copying content/pages/ into site/
+  console.log('Copied content/pages/ into site/')
+  readDir(site) // Then read through /site
 })
 
-function compilePage (file) {
-  fs.readFile('content/pages/' + file + '.html', 'utf-8', function (error, string) {
+function readDir (dir) {
+  fs.readdir(dir, 'utf-8', function (error, files) {
+    if (error) throw error // Trouble reading files in readDir()
+    files.forEach(function (name) {
+      checkFile(name, dir)
+    })
+  })
+}
+
+function checkFile (name, from) {
+  fs.lstat(from + '/' + name, function (error, stats) {
+    if (error) throw error // Troubling checking file stats
+    if (stats.isDirectory() && !name.match(/(^|[\/\\])\../)) readDir(from + '/' + name) // Anything that's a directory, pass back through the read function.
+    if (stats.isFile() && !name.match(/(^|[\/\\])\../) && name.match(/\.html$/)) compilePage(name, from + '/') // Anything that's an .html file, compile.
+  })
+}
+
+function compilePage (file, to) {
+  fs.readFile(to + file, 'utf-8', function (error, string) {
     if (error) throw error // File compile error
     var layout = string.match(/extends ([\w\S]+)/)[1]
     var blocks = string.match(/block (\w+)\n+([\s\S]*?)(?=\s+\nblock|$)/g)
@@ -23,28 +43,30 @@ function compilePage (file) {
       var frag = block.match(/<[\w\W]+>/)[0]
       frags[name] = frag
     })
-    getLayout(layout, frags)
+    getLayout(layout, frags, to)
   })
 
-  function getLayout (layout, frags) {
+  function getLayout (layout, frags, to) {
     fs.readFile('layouts/' + layout + '.html', 'utf-8', function (error, layout) {
       if (error) throw error // File read error
-      assemblePage(layout, frags)
+      assemblePage(layout, frags, to)
     })
   }
 
-  function assemblePage (layout, frags) {
+  function assemblePage (layout, frags, to) {
     Object.keys(frags).forEach(function (frag) {
       layout = layout.replace(new RegExp('{{' + frag + '}}'), frags[frag] )
     })
-    writePage(layout)
+    writePage(layout, to)
   }
 
-  function writePage (html) {
-    fs.writeFile('site/' + file + '.html', html, function (error) {
+  function writePage (html, to) {
+    fs.writeFile(to + file, html, function (error) {
       if (error) throw error // Trouble writing HTML page
-      console.log('Wrote ' + file + ' page')
+      console.log('Compiled ' + file + ' page')
     })
   }
 }
+
+module.exports = compilePage
 

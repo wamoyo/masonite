@@ -8,6 +8,7 @@
     "chokidar": "1.6.x"
   },
   "scripts": {
+    "unbuild": "rm -rf site",
     "watch-public": "node bin/watch-public.js",
     "watch-pages": "node bin/watch-pages.js",
     "watch-styles": "node bin/watch-styles.js",
