@@ -1,6 +1,6 @@
 {
   "name": "masonite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple static website generator using HTML with light templating and Stylus for CSS preprocessing.",
   "author": "Costa Michailidis <costa@innovationbound.com> (http://www.github.com/wamoyo)",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "build-styles": "node bin/build-styles.js",
     "build-blog": "",
     "build-events": "",
-    "watch": "npm run watch-public && npm run watch-pages && npm watch-styles",
+    "watch": "npm run watch-public & npm run watch-pages & npm run watch-styles & http-server site",
     "build": "npm run build-public && npm run build-pages && npm run build-styles",
     "serve": "http-server site",
     "start": "npm run build && npm run serve"
