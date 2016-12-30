@@ -1,6 +1,6 @@
 {
   "name": "masonite",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple static website generator using HTML with light templating and Stylus for CSS preprocessing.",
   "author": "Costa Michailidis <costa@innovationbound.com> (http://www.github.com/wamoyo)",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github.com/wamoyo/masonite.git"
+    "url": "https://github.com/github.com/wamoyo/masonite.git"
   },
   "keywords": [
     "static",
