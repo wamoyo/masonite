@@ -1,14 +1,33 @@
 {
-  "name": "Heartsbound",
-  "version": "0.0.1",
-  "description": "Because life is too dam short, the adventure is just too beautiful, our warriors are mighty, and the possibilities are endless.",
-  "license": "See license in LICENSE.md",
-  "private": true,
-  "dependencies": {
-    "chokidar": "1.6.x"
+  "name": "masonite",
+  "version": "0.1.0",
+  "description": "A simple static website generator using HTML with light templating and Stylus for CSS preprocessing.",
+  "author": "Costa Michailidis <costa@innovationbound.com> (http://www.github.com/wamoyo)",
+  "license": "MIT",
+  "homepage": "https://github.com/github.com/wamoyo/masonite#readme",
+  "bugs": {
+    "url": "https://github.com/github.com/wamoyo/masonite/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github.com/wamoyo/masonite.git"
+  },
+  "keywords": [
+    "static",
+    "site",
+    "stylus",
+    "html",
+    "generator"
+  ],
+  "dependencies": {
+    "chokidar": "1.6.x",
+    "http-server": "0.9.x",
+    "stylus": "0.54.x"
+  },
+  "main": "echo 'main?'",
   "scripts": {
-    "unbuild": "rm -rf site",
+    "test": "npm run wreck && npm run start",
+    "wreck": "rm -rf site",
     "watch-public": "node bin/watch-public.js",
     "watch-pages": "node bin/watch-pages.js",
     "watch-styles": "node bin/watch-styles.js",
@@ -23,9 +42,6 @@
     "build": "npm run build-public && npm run build-pages && npm run build-styles",
     "serve": "http-server site",
     "start": "npm run build && npm run serve"
-  },
-  "domains": [
-    "heartsbound.com",
-    "*.heartsbound.com"
-  ]
+  }
 }
+
