@@ -1,47 +1,34 @@
 {
   "name": "masonite",
-  "version": "0.1.2",
-  "description": "A simple static website generator using HTML with light templating and Stylus for CSS preprocessing.",
+  "version": "0.2.0",
+  "description": "A simple static website generator CLI using HTML with light templating and Stylus for CSS preprocessing.",
   "author": "Costa Michailidis <costa@innovationbound.com> (http://www.github.com/wamoyo)",
   "license": "MIT",
-  "homepage": "https://github.com/github.com/wamoyo/masonite#readme",
+  "homepage": "https://www.github.com/wamoyo/masonite#readme",
   "bugs": {
-    "url": "https://github.com/github.com/wamoyo/masonite/issues"
+    "url": "https://www.github.com/wamoyo/masonite/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/github.com/wamoyo/masonite.git"
+    "url": "https://www.github.com/wamoyo/masonite.git"
   },
   "keywords": [
-    "static",
-    "site",
+    "static-site",
+    "site-site-generator",
     "stylus",
-    "html",
-    "generator"
+    "html"
   ],
   "dependencies": {
-    "chokidar": "1.6.x",
-    "http-server": "0.9.x",
-    "stylus": "0.54.x"
+    "chokidar": "^1.6.1",
+    "commander": "^2.9.0",
+    "http-server": "^0.9.0",
+    "stylus": "^0.54.5"
   },
-  "main": "npm start",
+  "preferGlobal": true,
   "scripts": {
-    "test": "npm run wreck && npm run start",
-    "wreck": "rm -rf site",
-    "build-public": "cp -R public/. site/",
-    "build-pages": "node bin/build-pages.js",
-    "build-styles": "node bin/build-styles.js",
-    "build-blog": "",
-    "build-events": "",
-    "watch-public": "node bin/watch-public.js",
-    "watch-pages": "node bin/watch-pages.js",
-    "watch-styles": "node bin/watch-styles.js",
-    "watch-blog": "",
-    "watch-events": "",
-    "build": "npm run build-public && npm run build-pages && npm run build-styles",
-    "watch": "npm run watch-public & npm run watch-pages & npm run watch-styles & npm run serve",
-    "serve": "http-server site",
-    "start": "npm run build && npm run serve"
+    "test": "echo 'Masonite does not have any built in tests yet.'"
+  },
+  "bin": {
+    "masonite": "bin/index.js"
   }
 }
-
