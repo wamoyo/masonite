@@ -1,6 +1,6 @@
 {
   "name": "masonite",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple static website generator CLI using HTML with light templating and Stylus for CSS preprocessing.",
   "author": "Costa Michailidis <costa@innovationbound.com> (http://www.github.com/wamoyo)",
   "license": "MIT",
@@ -26,7 +26,7 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "test": "echo 'Masonite does not have any built in tests yet.'"
+    "test": ""
   },
   "bin": {
     "masonite": "bin/index.js"
